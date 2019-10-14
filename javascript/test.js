@@ -1,16 +1,16 @@
+document.cookie = 'cross-site-cookie=bar; SameSite=None; Secure';
 console.log("working");
-
 var topics= ["waterfalls", "mountains", "beaches", "islands","trees", "bears", "eagles"];
 
 
 function displayTopicGiphy(){
     var topic = $(this).attr("data-name");
-    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=N70F0bUVCX3gByJTgX7dA0k2SUFY4LEK&q="+ topic + "&limit=10";
+    var queryURL = "http://api.giphy.com/v1/gifs/search?api_key=N70F0bUVCX3gByJTgX7dA0k2SUFY4LEK&limit=10&q="+ topic;
 
     $.ajax({
         url: queryURL,
         method: "GET"
-    }).then(function(response){
+    }).done(function(response){
         var results = response.data;
 
         for (var i = 0; i < results.length; i++){
