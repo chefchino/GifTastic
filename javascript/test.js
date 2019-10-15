@@ -4,9 +4,10 @@ var topics= ["waterfalls", "mountains", "beaches", "islands","trees", "bears", "
 
 
 function displayTopicGiphy(){
+    $("#topic-view").empty();
     var topic = $(this).attr("data-name");
-    var queryURL = "http://api.giphy.com/v1/gifs/search?api_key=N70F0bUVCX3gByJTgX7dA0k2SUFY4LEK&limit=10&q="+ topic;
-
+    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=N70F0bUVCX3gByJTgX7dA0k2SUFY4LEK&limit=10&q="+ topic;
+    https://cors-anywhere.herokuapp.com/
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -17,17 +18,34 @@ function displayTopicGiphy(){
 
 
         
-        var topicDiv = $("<div class='topic1'>");
+        var topicDiv = $("<div>");
         var rating= results[i].rating;
         var pOne= $("<p>").text("Rating: " + rating);
         topicDiv.append(pOne);
-        var imgURL = results[i].url;
-        var image = $("<img>").attr("src", imgURL);
+        var stillImgURL = results[i].images.fixed_height_still.url;
+        var animateImgURL = results[i].images.fixed_height.url
+        var image = $("<img  class='topic1'>").attr("src", stillImgURL);
+        image.attr("data-state","still")
+        image.attr("crossorgin", "anonymous");
+
         topicDiv.append(image);
         $("#topic-view").prepend(topicDiv);
         console.log("response",response);
     
-    }})
+    }
+
+    $(".topic1").on('click', function(){
+
+        var state = $(this).attr("data-state");
+ 
+    if (state === "still") {
+        $(this).attr("src", animateImgURL);
+        $(this).attr("data-state", "animate");
+      } else {
+        $(this).attr("src", stillImgURL);
+        $(this).attr("data-state", "still");
+      }})
+})
 }
 
 
