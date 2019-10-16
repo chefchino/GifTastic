@@ -26,6 +26,8 @@ function displayTopicGiphy(){
         var animateImgURL = results[i].images.fixed_height.url
         var image = $("<img  class='topic1'>").attr("src", stillImgURL);
         image.attr("data-state","still")
+        image.attr("data-still", stillImgURL);
+        image.attr("data-animate",animateImgURL);
         image.attr("crossorgin", "anonymous");
 
         topicDiv.append(image);
@@ -37,12 +39,14 @@ function displayTopicGiphy(){
     $(".topic1").on('click', function(){
 
         var state = $(this).attr("data-state");
- 
+
+ console.log(this);
+
     if (state === "still") {
-        $(this).attr("src", animateImgURL);
+        $(this).attr("src", $(this).attr("data-animate"));
         $(this).attr("data-state", "animate");
       } else {
-        $(this).attr("src", stillImgURL);
+        $(this).attr("src", $(this).attr("data-still"));
         $(this).attr("data-state", "still");
       }})
 })
