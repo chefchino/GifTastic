@@ -4,7 +4,7 @@ var topics= ["waterfalls", "mountains", "beaches", "islands","trees", "bears", "
 
 
 function displayTopicGiphy(){
-    $("#topic-view").empty();
+    $("#topic-view").prepend();
     var topic = $(this).attr("data-name");
     var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=N70F0bUVCX3gByJTgX7dA0k2SUFY4LEK&limit=10&q="+ topic;
     https://cors-anywhere.herokuapp.com/
@@ -18,10 +18,12 @@ function displayTopicGiphy(){
 
 
         
-        var topicDiv = $("<div>");
+        var topicDiv = $("<div class='flex'>");
+        var title= results[i].title;
         var rating= results[i].rating;
-        var pOne= $("<p>").text("Rating: " + rating);
-        topicDiv.append(pOne);
+        var pOne= $("<p>").text("Rating: " + rating.toUpperCase());
+        var pTwo=$("<p>").text("Title: " + title.toUpperCase());
+        topicDiv.append(pOne, pTwo);
         var stillImgURL = results[i].images.fixed_height_still.url;
         var animateImgURL = results[i].images.fixed_height.url
         var image = $("<img  class='topic1'>").attr("src", stillImgURL);
